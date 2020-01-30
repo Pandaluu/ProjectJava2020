@@ -22,7 +22,7 @@ public class Person {
 	private Integer idPerson;
 	private String name;
 	private LocalDate birthdate;
-	private	List<String> nationalities;
+	private	List<String> nationalities = new ArrayList<String>();
 	private String biography;
 	
 	public Person() {
@@ -50,7 +50,7 @@ public class Person {
 		this.idPerson = idPerson;
 		this.name = name;
 		this.birthdate = birthdate;
-		this.nationalities =  new ArrayList<String>();
+		this.nationalities = nationalities;
 		this.biography = biography;
 	}
 
@@ -87,6 +87,7 @@ public class Person {
 		joinColumns=
 	        @JoinColumn(name="id_person")
 	)
+	
 	public List<String> getNationalities() {
 		return nationalities;
 	}

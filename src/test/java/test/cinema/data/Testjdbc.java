@@ -20,8 +20,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.postgresql.ds.PGSimpleDataSource;
 
-import cinema.data.Movie;
-import cinema.data.Person;
+import cinema.dto.Movie;
+import cinema.dto.Person;
 
 class Testjdbc {
 	static DataSource ds; // une seule base de donnée

@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import cinema.data.Person;
+import cinema.dto.Person;
 
 class TestPerson {
 
@@ -20,7 +20,7 @@ class TestPerson {
 		System.out.println(tp + " : " + tp.getAge());
 	}
 
-//	 @Test  // 2019 n'est pas une année bix
+//	 @Test  // 2019 n'est pas une annï¿½e bix
 //	 void testBirthdatefeburary () {
 //		 LocalDate birthdate = LocalDate.of(2019, 02, 29);
 //	 }

@@ -4,13 +4,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
+import cinema.dto.SimpleMovie;
 import cinema.persistance.entity.Movie;
 import cinema.persistance.repository.MovieRepository;
 import cinema.persistance.repository.PersonRepository;
@@ -26,27 +27,29 @@ public class MovieService implements IMovieService {
 	@Autowired
 	PersonRepository personRepository;
 	
-
+	@Autowired
+	ModelMapper mapper;
+	
 	@Override
-	public List<Movie> getAllMovies() {
-		return movieRepository.findAll();
+	public List<SimpleMovie> getAllMovies() {
+		List<Movie> movieEntities = movieRepository.findAll();
+		return movieEntities.stream()
+			.map(me -> mapper.map(me, SimpleMovie.class))	
+			.collect(Collectors.toList());
 	}
 
 	@Override
 	public Optional<Movie> getMovieById(int idMovie) {
-		// TODO Auto-generated method stub
 		return	movieRepository.findById(idMovie);	
 	}
 
 	@Override
 	public Set<Movie> getMovieByPartialTitle(String partialTitle) {
-		// TODO Auto-generated method stub
 		return	movieRepository.findByTitleContainingIgnoreCase(partialTitle);	
 	}
 
 	@Override
 	public Set<Movie> getMoviesByDirector(int idDirector) {
-		// TODO Auto-generated method stub
 		var directorOpt = personRepository.findById(idDirector);
 		return directorOpt.map(d -> movieRepository.findByDirector(d))
 				.orElseGet(() -> Collections.emptySet());
@@ -54,31 +57,26 @@ public class MovieService implements IMovieService {
 
 	@Override
 	public Set<Movie> getMovieByActor(int idActor) {
-		// TODO Auto-generated method stub
 		return movieRepository.findByActorsIdPerson(idActor);
 	}
 
 	@Override
 	public Set<Movie> getMovieByTitle(String title) {
-		// TODO Auto-generated method stub
 		return movieRepository.findByTitle(title);
 	}
 
 	@Override
 	public Set<Movie> getMovieByYear(int year) {
-		// TODO Auto-generated method stub
 		return movieRepository.findByYear(year);
 	}
 
 	@Override
 	public Set<Movie> getMovieByYearBetween(int year, int year_end) {
-		// TODO Auto-generated method stub
 		return movieRepository.findByYearBetween(year, year_end);
 	}
 
 	@Override
 	public Movie addMovie(Movie movie) {
-		// TODO Auto-generated method stub
 		return movieRepository.save(movie);
 	}
 

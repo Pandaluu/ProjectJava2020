@@ -7,15 +7,15 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import cinema.data.Movie;
-import cinema.data.Person;
+import cinema.dto.Movie;
+import cinema.dto.Person;
 
 class TestMovie {
 
 	@Test
 	void test() {
 				
-		Movie movie = new Movie("Joker", 2019, 165);// création de l'objet movie avec new
+		Movie movie = new Movie("Joker", 2019, 165);// crï¿½ation de l'objet movie avec new
 		Movie movie2 = new Movie("Parasite", 2019, 132);
 		Movie movie3 = new Movie("interstellar", 2014);
 		List<Movie> movies = List.of(movie,movie2,movie3);
@@ -33,8 +33,8 @@ class TestMovie {
 		//add directors
 		Person tp = new Person("Todd Phillips");
 		movie.setDirector(tp);
-		System.out.println(movie + " réalisé par " + movie.getDirector());
-		System.out.println(movie.getTitle() + " réalisé par " + movie.getDirector().getName());
+		System.out.println(movie + " rï¿½alisï¿½ par " + movie.getDirector());
+		System.out.println(movie.getTitle() + " rï¿½alisï¿½ par " + movie.getDirector().getName());
 		
 		//Clint Eastwood
 		Person clint = new Person("Clint Eastwood", LocalDate.of(1930, 5, 31));
