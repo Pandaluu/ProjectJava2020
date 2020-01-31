@@ -25,7 +25,7 @@ public class Movie {
 	private String title;
 	private String originalTitle;
 	private Integer year;
-	private Integer duration; //Integer peut être nulle car c'est une référence a un objet et non int qui est primitif
+	private Integer duration;
 	private List<String> genres = new ArrayList<String>();
 	private Float rating;
 	private Classification clasification;

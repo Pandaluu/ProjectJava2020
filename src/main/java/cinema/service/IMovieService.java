@@ -4,22 +4,20 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import cinema.dto.SimpleMovie;
+import cinema.dto.MovieFull;
+import cinema.dto.MovieLight;
 import cinema.persistance.entity.Movie;
 
 public interface IMovieService {
-	List<SimpleMovie> getAllMovies();
-	Optional<Movie> getMovieById(int idMovie);
-	Set<Movie> getMovieByPartialTitle(String partialTitle);
-	Set<Movie> getMoviesByDirector(int idDirector);
-	Set<Movie> getMovieByActor(int idActor);
-	Set<Movie> getMovieByTitle(String title);
-	Set<Movie> getMovieByYear(int year);
-	Set<Movie> getMovieByYearBetween(int year, int year_end);
-	Movie addMovie(Movie movie);
-	Optional<Movie> modifyMovie(Movie movie);
-	Optional<Movie> addActorToMovie(int id_movie, int id_actor);
-	Optional<Movie> addDirectorToMovie(int id_movie, int id_director);
-	Optional<Movie> deleteMovie(int id_movie);
+	List<MovieLight> getAllMovies();
+	Optional<MovieFull> getMovieById(int idMovie);
+	Set<MovieLight> getMovieByPartialTitle(String partialTitle);
+	Set<MovieLight> getMovieByTitle(String title);
+	Set<MovieLight> getMovieByYear(int year);
+	Set<MovieLight> getMovieByYearBetween(int year, int year_end);
+	MovieFull addMovie(MovieFull movie);
+	Optional<MovieFull> addActorToMovie(int movieId, int actorId);
+	Optional<MovieFull> modifyMovie(MovieFull movie);
+	Optional<MovieFull> deleteMovie(int id_movie);
 	
 }

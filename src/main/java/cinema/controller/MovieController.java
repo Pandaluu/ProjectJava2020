@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import cinema.dto.SimpleMovie;
-import cinema.persistance.entity.Movie;
+import cinema.dto.MovieFull;
+import cinema.dto.MovieLight;
 import cinema.service.IMovieService;
 
 
@@ -30,78 +30,64 @@ public class MovieController {
 
 	@GetMapping
 	@ResponseBody
-	public List<SimpleMovie> allMovies(){
+	public List<MovieLight> allMovies(){
 		return movieService.getAllMovies();
 	}
 
 	@GetMapping(value="/{id}")
 	@ResponseBody
-	public Optional<Movie> singleMovie(@PathVariable("id") Integer id) {
+	public Optional<MovieFull> singleMovie(@PathVariable("id") Integer id) {
 		return movieService.getMovieById(id);
 	}
 
 	@GetMapping(value="/byTitle")
 	@ResponseBody
-	public Set<Movie> movieByTitle(@RequestParam("t") String title) {
+	public Set<MovieLight> movieByTitle(@RequestParam("t") String title) {
 		return movieService.getMovieByTitle(title);
 	}
 
 	@GetMapping(value="/byYear")
 	@ResponseBody
-	public Set<Movie> movieByYear(@RequestParam("s") int year) {
+	public Set<MovieLight> movieByYear(@RequestParam("s") int year) {
 		return movieService.getMovieByYear(year);
 	}
 	
 	@GetMapping(value="/byYearBetween")
 	@ResponseBody
-	public Set<Movie> movieByYearBetween(@RequestParam("s") int year, @RequestParam("e") int year_end) {
+	public Set<MovieLight> movieByYearBetween(@RequestParam("s") int year, @RequestParam("e") int year_end) {
 		return movieService.getMovieByYearBetween(year, year_end);
 	}
 
-	@GetMapping("/findByDirector")
-	@ResponseBody
-	public Set<Movie> movieByDirectore(@RequestParam("d") int idDirector) {	
-		return movieService.getMoviesByDirector(idDirector);
-	}
-
-	@GetMapping("/findByActor")
-	@ResponseBody
-	public Set<Movie> movieByActor(@RequestParam("a") int idActor) {		
-		return movieService.getMovieByActor(idActor);
-	}
-	
 	/**
 	 * Method: Post
 	 */
 	
 	@PostMapping("/addMovie")
-	public @ResponseBody Movie addMovie(@RequestBody Movie movie) {
+	public @ResponseBody MovieFull addMovie(@RequestBody MovieFull movie) {
 		return movieService.addMovie(movie);
 	}
 
+	/**
+	 * Method: Put
+	 */
 	
 	@PutMapping("/modify")
-	public @ResponseBody Optional<Movie> mofiyMovie(@RequestBody Movie movie) {
+	public @ResponseBody Optional<MovieFull> mofiyMovie(@RequestBody MovieFull movie) {
 		return movieService.modifyMovie(movie);
 	}
-		
+	
 	@PutMapping("/addActor")
-	public Optional<Movie> addActorToMovie(@RequestParam("m") int movieId, @RequestParam("a") int actorId) {		
+	public Optional<MovieFull> addActorToMovie(@RequestParam("m") int movieId, @RequestParam("a") int actorId) {		
 		return movieService.addActorToMovie(movieId, actorId);
 	}
-	
-	@PutMapping("/addDirector")
-	public Optional<Movie> addDirectorToMovie(@RequestParam("m") int movieId, @RequestParam("d") int directorId) {
-		return movieService.addDirectorToMovie(movieId, directorId);
-	}
-	
+		
 	/**
 	 * Delete
 	 */
 
 	@DeleteMapping("/deleteMovie/{id}")
 	@ResponseBody
-	public Optional<Movie> deleteMovie(@PathVariable("id") int id_movie) {
+	public Optional<MovieFull> deleteMovie(@PathVariable("id") int id_movie) {
 		return movieService.deleteMovie(id_movie);
 	}
 
