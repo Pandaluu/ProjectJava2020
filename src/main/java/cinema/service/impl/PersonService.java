@@ -60,8 +60,7 @@ public class PersonService implements IPersonService{
 				.map(me ->me.getActors().stream()
 						.map(a -> mapper.map(a, PersonLight.class))
 						.collect(Collectors.toList()))
-				.orElse(List.of());
-			
+				.orElse(List.of());		
 	}
 			
 	@Override

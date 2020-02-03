@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import cinema.dto.MovieLight;
 import cinema.dto.PersonFull;
 import cinema.dto.PersonLight;
 import cinema.service.IPersonService;
@@ -36,6 +37,12 @@ public class PersonController {
 	@ResponseBody
 	public Optional<PersonFull> singlePerson(@PathVariable("id") int id) {
 		return personService.getPersonById(id);
+	}
+	
+	@GetMapping("/findByName")
+	@ResponseBody
+	public Set<PersonFull> personByName(@RequestParam("n") String name) {
+		return personService.getPersonByName(name);
 	}
 	
 	@GetMapping("/findByYear")
