@@ -11,31 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-import cinema.dto.FullPerson;
-import cinema.dto.LightPerson;
-=======
-import cinema.dto.MovieFull;
-import cinema.dto.MovieLight;
 import cinema.dto.PersonFull;
 import cinema.dto.PersonLight;
-import cinema.persistance.entity.Movie;
->>>>>>> 029585648c50d24aa196f0ac527321883b491959
-=======
-import cinema.dto.PersonFull;
-import cinema.dto.PersonLight;
->>>>>>> parent of 0295856... modified personService
-=======
-import cinema.dto.PersonFull;
-import cinema.dto.PersonLight;
->>>>>>> parent of 0295856... modified personService
-=======
-import cinema.dto.PersonFull;
-import cinema.dto.PersonLight;
->>>>>>> parent of 0295856... modified personService
 import cinema.persistance.entity.Person;
 import cinema.persistance.repository.MovieRepository;
 import cinema.persistance.repository.PersonRepository;
@@ -46,21 +23,10 @@ import cinema.service.IPersonService;
 public class PersonService implements IPersonService{
 	
 	@Autowired
-	private ModelMapper mapper;
-	
-	@Autowired
 	PersonRepository personRepository;
 	
 	@Autowired
 	MovieRepository movieRepository;
-<<<<<<< HEAD
-
-	@Override
-	public List<LightPerson> getAllPersons() {
-		List<Person> personEntity = personRepository.findAll();
-		return personEntity.stream()
-				.map(pe -> mapper.map(pe, LightPerson.class))
-=======
 	
 	@Autowired
 	ModelMapper mapper;
@@ -71,17 +37,11 @@ public class PersonService implements IPersonService{
 		List<Person> personEntity = personRepository.findAll();
 		return personEntity.stream()
 				.map(p -> mapper.map(p, PersonLight.class))
->>>>>>> 029585648c50d24aa196f0ac527321883b491959
 				.collect(Collectors.toList());
 	}
 	
 	
 	@Override
-<<<<<<< HEAD
-	public Optional<FullPerson> getPersonById(int id) {
-		return personRepository.findById(id)
-				.map(pe -> mapper.map(pe, FullPerson.class));
-=======
 	public Optional<PersonLight> getMovieDirector(Integer idMovie) {
 		return movieRepository.findById(idMovie)
 			.map(me -> {
@@ -97,108 +57,23 @@ public class PersonService implements IPersonService{
 				.map(me ->me.getActors().stream()
 						.map(a -> mapper.map(a, PersonLight.class))
 						.collect(Collectors.toList()))
-				.orElse(List.of());		
+				.orElse(List.of());
+			
 	}
 			
 	@Override
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	public Optional<PersonFull> getPersonById (int id) {
-			return personRepository.findById(id)
-					.map(p -> mapper.map(p, PersonFull.class));
->>>>>>> 029585648c50d24aa196f0ac527321883b491959
-=======
 	public Optional<PersonFull> getPersonById(int id) {
 		// TODO Auto-generated method stub
 		return null;
->>>>>>> parent of 0295856... modified personService
-=======
-	public Optional<PersonFull> getPersonById(int id) {
-		// TODO Auto-generated method stub
-		return null;
->>>>>>> parent of 0295856... modified personService
-=======
-	public Optional<PersonFull> getPersonById(int id) {
-		// TODO Auto-generated method stub
-		return null;
->>>>>>> parent of 0295856... modified personService
 	}
-	
+
 	@Override
-<<<<<<< HEAD
-	public Set<LightPerson> getPersonByName(String name) {
-		Set<Person> personEntity = personRepository.findByName(name);
-		return personEntity.stream()
-				.map(pe -> mapper.map(pe, LightPerson.class))
-=======
 	public Set<PersonFull> getPersonByYear(int year) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-		Set<Person> personEntities = personRepository.findByBirthDateYear(year);
-		return personEntities.stream()
-				.map(me -> mapper.map(me, PersonFull.class))
->>>>>>> 029585648c50d24aa196f0ac527321883b491959
-				.collect(Collectors.toSet());
-=======
-		// TODO Auto-generated method stub
-		return null;
->>>>>>> parent of 0295856... modified personService
-	}
-
-	@Override
-<<<<<<< HEAD
-	public Set<LightPerson> getPersonByYear(int year) {
-		Set<Person> personEntity = personRepository.findByBirthDateYear(year);
-		return personEntity.stream()
-				.map(pe -> mapper.map(pe, LightPerson.class))
-				.collect(Collectors.toSet());
-=======
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Set<PersonFull> getPersonByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
->>>>>>> parent of 0295856... modified personService
-	}
-
-	@Override
-	public Optional<LightPerson> getMovieDirector(int id_movie) {
-		return movieRepository.findById(id_movie)
-		.map(me -> {
-			Person d = me.getDirector();
-			return Objects.isNull(d) ? null : mapper.map(d, LightPerson.class);
-		});
-	}
-
-	@Override
-	public List<LightPerson> getMovieActors(int id_movie) {
-		return movieRepository.findById(id_movie)
-				.map(me -> me.getActors().stream()
-						.map(a -> mapper.map(a, LightPerson.class))
-						.collect(Collectors.toList()))
-				.orElse(List.of());
-	}	
-	
-	@Override
-	public FullPerson addNewPerson(FullPerson personDto) {
-		Person personEntity = mapper.map(personDto, Person.class);
-		personRepository.save(personEntity);
-		mapper.map(personEntity, personDto);
-		return personDto;
-	}
-=======
-=======
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
->>>>>>> parent of 0295856... modified personService
 	public Set<PersonFull> getPersonByName(String name) {
 		// TODO Auto-generated method stub
 		return null;
@@ -212,5 +87,4 @@ public class PersonService implements IPersonService{
 	}
 
 
->>>>>>> 029585648c50d24aa196f0ac527321883b491959
 }
