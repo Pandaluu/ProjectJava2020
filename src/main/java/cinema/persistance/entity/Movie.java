@@ -18,7 +18,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+<<<<<<< HEAD
 import javax.persistence.MapKeyJoinColumn;
+=======
+>>>>>>> 029585648c50d24aa196f0ac527321883b491959
 import javax.persistence.Table;
 
 @Entity
@@ -30,8 +33,13 @@ public class Movie {
 	private String title;
 	private String originalTitle;
 	private Integer year;
+<<<<<<< HEAD
 	private Integer duration; //Integer peut être nulle car c'est une référence a un objet et non int qui est primitif
 	private Set<String> genres = new TreeSet<String>();
+=======
+	private Integer duration;
+	private List<String> genres = new ArrayList<String>();
+>>>>>>> 029585648c50d24aa196f0ac527321883b491959
 	private Float rating;
 	private Classification clasification;
 	private String synopsis;
