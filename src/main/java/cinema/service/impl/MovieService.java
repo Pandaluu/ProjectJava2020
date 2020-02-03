@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import cinema.dto.MovieFull;
 import cinema.dto.MovieLight;
 import cinema.persistance.entity.Movie;
-import cinema.persistance.entity.Person;
 import cinema.persistance.repository.MovieRepository;
 import cinema.persistance.repository.PersonRepository;
 import cinema.service.IMovieService;
