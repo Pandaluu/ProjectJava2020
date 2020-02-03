@@ -85,7 +85,7 @@ public class MovieController {
 
 	@DeleteMapping("/deleteMovie/{id}")
 	@ResponseBody
-	public Optional<MovieFull> deleteMovie(@PathVariable("id") int id_movie) {
+	public MovieFull deleteMovie(@PathVariable("id") int id_movie) {
 		return movieService.deleteMovie(id_movie);
 	}
 
