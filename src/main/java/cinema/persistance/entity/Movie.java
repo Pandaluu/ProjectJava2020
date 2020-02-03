@@ -1,7 +1,11 @@
 package cinema.persistance.entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -14,6 +18,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+<<<<<<< HEAD
+import javax.persistence.MapKeyJoinColumn;
+=======
+>>>>>>> 029585648c50d24aa196f0ac527321883b491959
 import javax.persistence.Table;
 
 @Entity
@@ -25,14 +33,19 @@ public class Movie {
 	private String title;
 	private String originalTitle;
 	private Integer year;
+<<<<<<< HEAD
+	private Integer duration; //Integer peut être nulle car c'est une référence a un objet et non int qui est primitif
+	private Set<String> genres = new TreeSet<String>();
+=======
 	private Integer duration;
 	private List<String> genres = new ArrayList<String>();
+>>>>>>> 029585648c50d24aa196f0ac527321883b491959
 	private Float rating;
 	private Classification clasification;
 	private String synopsis;
 	private Person director;
 	private String format;
-	private List<Person> actors = new ArrayList<Person>();
+	private List<Person> actors = new ArrayList<>();
 	
 	
 	public Movie() {
@@ -51,11 +64,11 @@ public class Movie {
         this(null, title, null, year, duration, null, null, null, null, director );
     }
     
-    public Movie(String title, int year, int duration, List<String> genres) {
+    public Movie(String title, int year, int duration, Set<String> genres) {
         this(null, title, null, year, duration, genres, null, null, null, null );
     }
     
-    public Movie(String title, int year, int duration, List<String> genres, Person director) {
+    public Movie(String title, int year, int duration, Set<String> genres, Person director) {
         this(null, title, null, year, duration, genres, null, null, null, director );
     }
     
@@ -71,7 +84,7 @@ public class Movie {
         this(null, title, originalTitle, year, duration, null, null, synopsis, format, director );
     }
 
-	public Movie(Integer idMovie, String title, String originalTitle, Integer year, Integer duration, List<String> genres, Float rating, String synopsis, String format, Person director) {
+	public Movie(Integer idMovie, String title, String originalTitle, Integer year, Integer duration, Set<String> genres, Float rating, String synopsis, String format, Person director) {
 		super();
 		this.idMovie = idMovie;
 		this.title = title;
@@ -136,11 +149,11 @@ public class Movie {
 		joinColumns=
 	        @JoinColumn(name="id_movie")
 	)
-	public List<String> getGenres() {
+	public Set<String> getGenres() {
 		return genres;
 	}
 
-	public void setGenres(List<String> genres) {
+	public void setGenres(Set<String> genres) {
 		this.genres = genres;
 	}
 
@@ -185,10 +198,14 @@ public class Movie {
 		return format;
 	}
 
-	
 	public void setFormat(String format) {
 		this.format = format;
 	}
+
+//	@ElementCollection
+//	@CollectionTable(name = "actors", joinColumns = @JoinColumn(name = "idMovie"))
+//	@MapKeyJoinColumn(name = "idPerson")
+//	@Column(name = "role")
 	
 	@ManyToMany //(fetch = FetchType.EAGER)
 	@JoinTable(name="act",
