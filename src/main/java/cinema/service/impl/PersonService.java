@@ -11,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cinema.dto.MovieFull;
+import cinema.dto.MovieLight;
 import cinema.dto.PersonFull;
 import cinema.dto.PersonLight;
+import cinema.persistance.entity.Movie;
 import cinema.persistance.entity.Person;
 import cinema.persistance.repository.MovieRepository;
 import cinema.persistance.repository.PersonRepository;
@@ -62,21 +65,25 @@ public class PersonService implements IPersonService{
 	}
 			
 	@Override
-	public Optional<PersonFull> getPersonById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<PersonFull> getPersonById (int id) {
+			return personRepository.findById(id)
+					.map(p -> mapper.map(p, PersonFull.class));
 	}
 
 	@Override
 	public Set<PersonFull> getPersonByYear(int year) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Person> personEntities = personRepository.findByBirthDateYear(year);
+		return personEntities.stream()
+				.map(me -> mapper.map(me, PersonFull.class))
+				.collect(Collectors.toSet());
 	}
 
 	@Override
 	public Set<PersonFull> getPersonByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Person> personEntities = personRepository.findByName(name);
+		return personEntities.stream()
+				.map(me -> mapper.map(me, PersonFull.class))
+				.collect(Collectors.toSet());
 	}
 
 

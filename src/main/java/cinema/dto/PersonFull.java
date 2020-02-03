@@ -3,7 +3,6 @@ package cinema.dto;
 import java.util.List;
 
 public class PersonFull extends PersonLight {
-	
 	private List<String> nationalities;
 	private String biography;
 	
