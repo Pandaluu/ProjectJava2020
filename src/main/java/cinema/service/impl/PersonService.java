@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import cinema.dto.FullPerson;
 import cinema.dto.LightPerson;
 =======
@@ -22,6 +23,10 @@ import cinema.dto.PersonFull;
 import cinema.dto.PersonLight;
 import cinema.persistance.entity.Movie;
 >>>>>>> 029585648c50d24aa196f0ac527321883b491959
+=======
+import cinema.dto.PersonFull;
+import cinema.dto.PersonLight;
+>>>>>>> parent of 0295856... modified personService
 =======
 import cinema.dto.PersonFull;
 import cinema.dto.PersonLight;
@@ -92,10 +97,16 @@ public class PersonService implements IPersonService{
 			
 	@Override
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public Optional<PersonFull> getPersonById (int id) {
 			return personRepository.findById(id)
 					.map(p -> mapper.map(p, PersonFull.class));
 >>>>>>> 029585648c50d24aa196f0ac527321883b491959
+=======
+	public Optional<PersonFull> getPersonById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+>>>>>>> parent of 0295856... modified personService
 =======
 	public Optional<PersonFull> getPersonById(int id) {
 		// TODO Auto-generated method stub
@@ -111,6 +122,7 @@ public class PersonService implements IPersonService{
 				.map(pe -> mapper.map(pe, LightPerson.class))
 =======
 	public Set<PersonFull> getPersonByYear(int year) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 		Set<Person> personEntities = personRepository.findByBirthDateYear(year);
 		return personEntities.stream()
@@ -130,6 +142,16 @@ public class PersonService implements IPersonService{
 		return personEntity.stream()
 				.map(pe -> mapper.map(pe, LightPerson.class))
 				.collect(Collectors.toSet());
+=======
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<PersonFull> getPersonByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+>>>>>>> parent of 0295856... modified personService
 	}
 
 	@Override
