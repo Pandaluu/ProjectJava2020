@@ -47,7 +47,6 @@ class TestCinema {
 	}
 	
 
-	@Rollback(false)
 	@Test
 	void testSelectMovieWithDirector() {
 		var movies = repoMovies.findByTitle("interstellar");

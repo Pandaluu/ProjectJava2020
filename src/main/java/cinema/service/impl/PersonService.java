@@ -86,4 +86,16 @@ public class PersonService implements IPersonService{
 		mapper.map(personEntity, personDto);
 		return personDto;
 	}
+
+	@Override
+	public FullPerson deletePerson(int id) {
+		var personEntity = personRepository.findById(id);
+		personEntity.ifPresent(pe -> {
+			personRepository.delete(pe);
+			personRepository.flush();
+		});
+		return mapper.map(personEntity, FullPerson.class);
+	}
+	
+	
 }
