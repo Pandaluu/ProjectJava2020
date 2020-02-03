@@ -50,11 +50,7 @@ public class Person {
 		this.idPerson = idPerson;
 		this.name = name;
 		this.birthdate = birthdate;
-<<<<<<< HEAD
-		this.nationalities = nationalities ;
-=======
 		this.nationalities = nationalities;
->>>>>>> 029585648c50d24aa196f0ac527321883b491959
 		this.biography = biography;
 	}
 

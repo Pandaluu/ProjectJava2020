@@ -18,10 +18,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-<<<<<<< HEAD
-import javax.persistence.MapKeyJoinColumn;
-=======
->>>>>>> 029585648c50d24aa196f0ac527321883b491959
 import javax.persistence.Table;
 
 @Entity
@@ -33,13 +29,8 @@ public class Movie {
 	private String title;
 	private String originalTitle;
 	private Integer year;
-<<<<<<< HEAD
-	private Integer duration; //Integer peut être nulle car c'est une référence a un objet et non int qui est primitif
-	private Set<String> genres = new TreeSet<String>();
-=======
 	private Integer duration;
 	private List<String> genres = new ArrayList<String>();
->>>>>>> 029585648c50d24aa196f0ac527321883b491959
 	private Float rating;
 	private Classification clasification;
 	private String synopsis;
@@ -64,11 +55,11 @@ public class Movie {
         this(null, title, null, year, duration, null, null, null, null, director );
     }
     
-    public Movie(String title, int year, int duration, Set<String> genres) {
+    public Movie(String title, int year, int duration, List<String> genres) {
         this(null, title, null, year, duration, genres, null, null, null, null );
     }
     
-    public Movie(String title, int year, int duration, Set<String> genres, Person director) {
+    public Movie(String title, int year, int duration, List<String> genres, Person director) {
         this(null, title, null, year, duration, genres, null, null, null, director );
     }
     
@@ -84,7 +75,7 @@ public class Movie {
         this(null, title, originalTitle, year, duration, null, null, synopsis, format, director );
     }
 
-	public Movie(Integer idMovie, String title, String originalTitle, Integer year, Integer duration, Set<String> genres, Float rating, String synopsis, String format, Person director) {
+	public Movie(Integer idMovie, String title, String originalTitle, Integer year, Integer duration, List<String> genres, Float rating, String synopsis, String format, Person director) {
 		super();
 		this.idMovie = idMovie;
 		this.title = title;
@@ -149,11 +140,11 @@ public class Movie {
 		joinColumns=
 	        @JoinColumn(name="id_movie")
 	)
-	public Set<String> getGenres() {
+	public List<String> getGenres() {
 		return genres;
 	}
 
-	public void setGenres(Set<String> genres) {
+	public void setGenres(List<String> genres) {
 		this.genres = genres;
 	}
 
