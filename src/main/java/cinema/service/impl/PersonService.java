@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cinema.dto.MovieLight;
 import cinema.dto.PersonFull;
 import cinema.dto.PersonLight;
+import cinema.persistance.entity.Movie;
 import cinema.persistance.entity.Person;
 import cinema.persistance.repository.MovieRepository;
 import cinema.persistance.repository.PersonRepository;
@@ -40,6 +42,28 @@ public class PersonService implements IPersonService{
 				.collect(Collectors.toList());
 	}
 	
+	@Override
+	public Optional<PersonFull> getPersonById(int id) {
+		return personRepository.findById(id)
+				.map(pe -> mapper.map(pe, PersonFull.class));
+	}
+
+	@Override
+	public Set<PersonFull> getPersonByYear(int year) {
+		Set<Person> personEntities = personRepository.findByBirthDateYear(year);
+		return personEntities.stream()
+				.map(me -> mapper.map(me, PersonFull.class))
+				.collect(Collectors.toSet());
+	}
+
+	@Override
+	public Set<PersonFull> getPersonByName(String name) {
+		Set<Person> personEntities = personRepository.findByName(name);
+		return personEntities.stream()
+				.map(me -> mapper.map(me, PersonFull.class))
+				.collect(Collectors.toSet());
+	}
+
 	
 	@Override
 	public Optional<PersonLight> getMovieDirector(Integer idMovie) {
@@ -57,33 +81,15 @@ public class PersonService implements IPersonService{
 				.map(me ->me.getActors().stream()
 						.map(a -> mapper.map(a, PersonLight.class))
 						.collect(Collectors.toList()))
-				.orElse(List.of());
-			
+				.orElse(List.of());		
 	}
-			
-	@Override
-	public Optional<PersonFull> getPersonById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<PersonFull> getPersonByYear(int year) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<PersonFull> getPersonByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 	@Override
 	public Person addNewPerson(Person newPerson) {
-		// TODO Auto-generated method stub
-		return null;
+		Person personEntity = mapper.map(newPerson, Person.class);
+		personRepository.save(personEntity);
+		mapper.map(personEntity,newPerson);
+		return newPerson;
 	}
 
 

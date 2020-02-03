@@ -2,7 +2,6 @@ package cinema.service.impl;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -80,15 +79,31 @@ public class MovieService implements IMovieService {
 
 	@Override
 	public Optional<MovieFull> modifyMovie(MovieFull movie) {
-		return null;
-	}
+        Optional<Movie> movieEntity = movieRepository.findById(movie.getIdMovie())
+                .map(me -> mapper.map(me, Movie.class));
 
-	@Override
-	public Optional<MovieFull> deleteMovie(int id_movie) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        movieEntity.ifPresent(m-> {
+            m.setTitle(movie.getTitle());
+            m.setYear(movie.getYear());
+            m.setDuration(movie.getDuration());
+            movieRepository.flush();
+        });
+        
+        return movieEntity.map(me -> mapper.map(me, MovieFull.class));
+    }
 
+    @Override
+    public MovieFull deleteMovie(int id_movie) {
+        var movieEntity = movieRepository.findById(id_movie);
+
+        movieEntity.ifPresent(m -> {
+            movieRepository.delete(m);
+            movieRepository.flush();
+        });
+        return mapper.map(movieEntity, MovieFull.class);
+    }
+
+  
 	@Override
 	public Optional<MovieFull> addActorToMovie(int movieId, int actorId) {
 		return movieRepository.findById(movieId)
@@ -104,53 +119,6 @@ public class MovieService implements IMovieService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-//	@Override
-//	public Set<MovieLight> getMovieByPartialTitle(String partialTitle) {
-//		return	movieRepository.findByTitleContainingIgnoreCase(partialTitle);	
-//	}
-//
-//	@Override
-//	public Set<MovieLight> getMovieByTitle(String title) {
-//		return movieRepository.findByTitle(title);
-//	}
-//
-//	@Override
-//	public Set<MovieLight> getMovieByYear(int year) {
-//		return movieRepository.findByYear(year);
-//	}
-//
-//	@Override
-//	public Set<MovieLight> getMovieByYearBetween(int year, int year_end) {
-//		return movieRepository.findByYearBetween(year, year_end);
-//	}
-//
-//	@Override
-//	public MovieFull addMovie(MovieFull movie) {
-//		return movieRepository.save(movie);
-//	}
-//
-//	
-//	@Override
-//	public Optional<MovieFull> modifyMovie(MovieFull movie) {
-//		var optMovie = movieRepository.findById(movie.getId_movie());
-//		optMovie.ifPresent(m -> {
-//			m.setTitle(movie.getTitle());
-//			m.setYear(movie.getYear());
-//			m.setDuration(movie.getDuration());
-//			m.setDirector(movie.getDirector());
-//		});	
-//		movieRepository.flush();
-//		return optMovie;
-//	}
-//	
-//	@Override
-//	public Optional<MovieFull> deleteMovie(int id_movie) {
-//		var delMovie = movieRepository.findById(id_movie);
-//		delMovie.ifPresent(m -> {
-//			movieRepository.delete(m);
-//			movieRepository.flush();
-//		});
-//		return delMovie;
-//	}
+	
 }
+

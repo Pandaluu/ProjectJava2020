@@ -71,10 +71,10 @@ public class PersonController {
 	 * Method: Post
 	 */
 	
-//	@PostMapping("/addNewPerson")
-//	@ResponseBody
-//	public Person addNewPerson(@RequestBody Person newPerson) {
-//		return personService.addNewPerson(newPerson);
-//	}
+	@PostMapping("/addNewPerson")
+	@ResponseBody
+	public Person addNewPerson(@RequestBody Person newPerson) {
+		return personService.addNewPerson(newPerson);
+	}
 	
 }

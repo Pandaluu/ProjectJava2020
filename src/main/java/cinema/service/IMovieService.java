@@ -17,6 +17,6 @@ public interface IMovieService {
 	MovieFull addMovie(MovieFull movie);
 	Optional<MovieFull> addActorToMovie(int movieId, int actorId);
 	Optional<MovieFull> modifyMovie(MovieFull movie);
-	Optional<MovieFull> deleteMovie(int id_movie);
+	MovieFull deleteMovie(int id_movie);
 	
 }
