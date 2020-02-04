@@ -10,45 +10,32 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import cinema.security.MyBasicAuthenticationEntryPoint;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, proxyTargetClass = true)
-public class ServerSecurityConfig extends WebSecurityConfigurerAdapter  {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 
 	@Autowired
-	private MyBasicAuthenticationEntryPoint authenticationEntryPoint;
-
+	MyBasicAuthenticationEntryPoint authenticationEntryPoint;
+	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication()
-		.withUser("admin").password(passwordEncoder().encode("admin"))
+		.withUser("admin").password("password")
 		.roles("ADMIN");
 		auth.inMemoryAuthentication()
-		.withUser("user").password(passwordEncoder().encode("user"))
+		.withUser("user").password("password")
 		.roles("USER");
 	}
 
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/api/admin/**").hasRole("ADMIN")
-		.antMatchers("/api/login*").permitAll()
-		.antMatchers("/api/movie*").permitAll()
-		.anyRequest().authenticated()
-		.and()
-		.httpBasic()
-		.authenticationEntryPoint(authenticationEntryPoint)
-		.and()
-		.logout()
-		.deleteCookies("");
-	}
-
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+		.antMatchers("/")
+		.permitAll();
+		http.csrf().disable();
 	}
 }

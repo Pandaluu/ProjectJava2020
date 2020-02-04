@@ -3,8 +3,6 @@ package cinema.persistence.entity.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.Test;
@@ -12,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 
-import cinema.persistance.entity.Movie;
+import cinema.persistance.entity.Account;
 import cinema.persistance.entity.Person;
+import cinema.persistance.repository.AccountRepository;
 import cinema.persistance.repository.MovieRepository;
 import cinema.persistance.repository.PersonRepository;
 
@@ -28,11 +28,16 @@ class TestCinema {
 	PersonRepository repoPersons;
 	
 	@Autowired
+	PasswordEncoder passwordEncoder;
+	
+	@Autowired
 	MovieRepository repoMovies;
 	
 	@Autowired
 	EntityManager entityManager;
 
+	@Autowired
+	AccountRepository accountRepository; 
 	
 	@Rollback(false)
 	@Test
@@ -112,4 +117,16 @@ class TestCinema {
 //		System.out.println(data2);
 //	}
 //	
+	
+	@Rollback(false)
+	@Test
+	void testaddAccount() {
+		var a = new Account();
+		a.setFirstName("Aleksejs");
+		a.setLastName("Pridannikovs");
+		a.setUsername("admin");
+		a.setPassword(passwordEncoder.encode("password"));
+		a.setEmail("admin@test.com");
+		accountRepository.save(a);
+	}
 }

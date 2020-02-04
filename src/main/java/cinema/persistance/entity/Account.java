@@ -1,15 +1,19 @@
 package cinema.persistance.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "account")
@@ -20,9 +24,12 @@ public class Account {
 	private String lastName;
 	private String email;
 	private String password;
+	@Transient
+    private String passwordConfirm;
+	
 	private Date registerDate;
 	private String solt;
-	private List<String> roles;
+	private Set<Role> roles;
 	private int status;
 
 
@@ -30,28 +37,21 @@ public class Account {
 		super();
 	}
 
-	public Account(String username, String email, String password, String solt, List<String> roles) {
-		this(username, null, null, email, password, null, solt, roles, 0);
+	public Account(String username, String email, String password, String passwordConfirm, String solt, List<String> roles) {
+		this(username, null, null, email, password, passwordConfirm, null, solt, 0);
 	} 
 
-	public Account(String username, String firstName, String lastName, String email, String password, Date registerDate,
-			String solt, List<String> roles, int status) {
+	public Account(String username, String firstName, String lastName, String email, String password, String passwordConfirm, Date registerDate,
+			String solt, int status) {
 		super();
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
+		this.passwordConfirm = passwordConfirm;
 		this.registerDate = registerDate;
 		this.solt = solt;
-
-		this.roles = new ArrayList<String>();
-		if (roles != null) {
-			for (String r : roles) {
-				this.roles.add(r);
-			}
-		}
-
 		this.status = status;
 	}
 
@@ -111,6 +111,14 @@ public class Account {
 		this.password = password;
 	}
 
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
+
 	@Column(name = "register_date")
 	public Date getRegisterDate() {
 		return registerDate;
@@ -128,6 +136,20 @@ public class Account {
 	public void setSolt(String solt) {
 		this.solt = solt;
 	}
+	
+	@ManyToMany
+    @JoinTable(name = "account_role", 
+    	joinColumns = 
+    		@JoinColumn(name = "account_id"), 
+    	inverseJoinColumns = 
+    		@JoinColumn(name = "role_id"))
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
 	@Column(name = "status", nullable = false)
 	public int getStatus() {
