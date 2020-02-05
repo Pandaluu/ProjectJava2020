@@ -1,16 +1,16 @@
 package cinema.service.impl;
 
-import java.util.ArrayList;
-
+import org.apache.tomcat.jni.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-import cinema.service.ICleanerService;
 import cinema.persistance.entity.Account;
 import cinema.service.IAccountService;
 import cinema.service.IJwtUserDetailsService;
 
+@Service
 public class JwtUserDetailsService implements IJwtUserDetailsService {
 	@Autowired
 	private IAccountService accountService;
@@ -28,7 +28,7 @@ public class JwtUserDetailsService implements IJwtUserDetailsService {
 		 */
 		
 		if (a != null) {
-			return new Account(a.getEmail(), a.getPassword(), new ArrayList<>());
+			return (UserDetails) new User();
 		} else {			
 			/**
 			 * If I didn't find any corresponding User (client or Cleaner, I return an exception:

@@ -1,5 +1,7 @@
 package cinema.service;
 
-public interface IAuthChecker {
+import cinema.persistance.entity.Account;
 
+public interface IAuthChecker {
+	Account getCurrentUser();
 }

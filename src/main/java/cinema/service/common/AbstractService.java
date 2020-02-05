@@ -16,7 +16,7 @@ import cinema.exeption.ClientNotFoundException;
 public abstract class AbstractService<T> implements IAbstractService<T> {
 
 	@Autowired
-	public abstract JpaRepository<T, Long> getRepo();
+	public abstract JpaRepository<T, Integer> getRepo();
 	
 	@Override
 	public List<T> findAll() {
@@ -34,7 +34,7 @@ public abstract class AbstractService<T> implements IAbstractService<T> {
 	}
 
 	@Override
-	public boolean deleteById(Long id) {
+	public boolean deleteById(Integer id) {
 		return false;
 	}
 
