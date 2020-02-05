@@ -37,6 +37,10 @@ public class Account {
 		super();
 	}
 
+	public Account(String email, String password) {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Account(String username, String email, String password, String passwordConfirm, String solt, List<String> roles) {
 		this(username, null, null, email, password, passwordConfirm, null, solt, 0);
 	} 

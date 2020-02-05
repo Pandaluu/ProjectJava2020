@@ -1,38 +1,47 @@
 package cinema.service.impl;
 
-import java.util.HashSet;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import cinema.dto.AccountPassword;
+import cinema.exeption.AlreadyExistException;
 import cinema.persistance.entity.Account;
 import cinema.persistance.repository.AccountRepository;
-import cinema.persistance.repository.RoleRepository;
 import cinema.service.IAccountService;
+import cinema.service.common.AbstractService;
 
-@Service
-public class AccountService implements IAccountService{
+public class AccountService extends AbstractService<Account> implements IAccountService {
 
 	@Autowired
 	AccountRepository accountRepository;
-	
-	@Autowired
-	RoleRepository roleRepository;
-	
-	@Autowired
-	PasswordEncoder passwordEncoder;
+
+	@Override
+	public JpaRepository<Account, Long> getRepo() {
+		// TODO Auto-generated method stub
+		return accountRepository;
+	}
 	
 	@Override
-    public void save(Account account) {
-        account.setPassword(passwordEncoder.encode(account.getPassword()));
-        account.setRoles(new HashSet<>(roleRepository.findAll()));
-        accountRepository.save(account);
-    }
+	public Account changePassword(AccountPassword clientPassword) {
+		Account c = accountRepository.getOne(clientPassword.getId());	
+		c.setPassword(clientPassword.getPassword());
+		return accountRepository.save(c);
+	}
 
-    @Override
-    public Account findByUsername(String username) {
-        return accountRepository.findByUsername(username);
-    }
+	@Override
+	public Account findByMail(String username) {
+		return accountRepository.findByEmail(username);
+	}
 
+	@Override
+	public Account save(Account t) {
+		try {
+			t = super.save(t);
+		} catch (Exception e) {
+		
+			throw new AlreadyExistException("Impossible d'utiliser ces credentials");
+		}
+		
+		return t;
+	}
 }

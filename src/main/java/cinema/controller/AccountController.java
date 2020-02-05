@@ -9,16 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import cinema.persistance.entity.Account;
 import cinema.service.impl.AccountService;
-import cinema.service.impl.SecurityService;
 import cinema.validator.AccountValidator;
 
 public class AccountController {
 	
 	@Autowired
 	AccountValidator accountValidator;
-	
-	@Autowired
-	SecurityService securityService;
 	
 	@Autowired
 	AccountService accountService;
@@ -37,7 +33,7 @@ public class AccountController {
 			return "registration";
 		}
 		accountService.save(accountForm);
-		securityService.autologin(accountForm.getUsername(), accountForm.getPasswordConfirm());
+//		securityService.autologin(accountForm.getUsername(), accountForm.getPasswordConfirm());
 		return "redirect:/welcome";
 	}
 
