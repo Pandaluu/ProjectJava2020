@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import cinema.dto.MovieFull;
 import cinema.dto.MovieLight;
+import cinema.persistance.entity.Movie;
+import cinema.persistance.repository.MovieRepository;
 import cinema.service.IMovieService;
 
 
@@ -26,31 +29,47 @@ public class MovieController {
 
 	@Autowired(required = true)
 	IMovieService movieService;
+	
+	@Autowired
+	MovieRepository mrepo;
 
+	@CrossOrigin
 	@GetMapping
 	@ResponseBody
 	public List<MovieLight> allMovies(){
 		return movieService.getAllMovies();
 	}
 
+	@CrossOrigin
 	@GetMapping(value="/{id}")
 	@ResponseBody
 	public Optional<MovieFull> singleMovie(@PathVariable("id") Integer id) {
 		return movieService.getMovieById(id);
 	}
 
+	@CrossOrigin
 	@GetMapping(value="/byTitle")
 	@ResponseBody
 	public Set<MovieLight> movieByTitle(@RequestParam("t") String title) {
 		return movieService.getMovieByTitle(title);
 	}
+	
+	@CrossOrigin
+	@GetMapping(value="/byTitleP")
+	@ResponseBody
+	public Set<Movie> movieByPartialTitle(@RequestParam("t") String title) {
+		return mrepo.findByTitleContainingIgnoreCase(title);
+	}
+	
 
+	@CrossOrigin
 	@GetMapping(value="/byYear")
 	@ResponseBody
 	public Set<MovieLight> movieByYear(@RequestParam("s") int year) {
 		return movieService.getMovieByYear(year);
 	}
 
+	@CrossOrigin
 	@GetMapping(value="/byYearBetween")
 	@ResponseBody
 	public Set<MovieLight> movieByYearBetween(@RequestParam("s") int year, @RequestParam("e") int year_end) {
