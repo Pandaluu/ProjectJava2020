@@ -79,7 +79,7 @@ public class MovieController {
 	/**
 	 * Method: Post
 	 */
-
+	@CrossOrigin
 	public @ResponseBody MovieFull addMovie(@RequestBody MovieFull movie) {
 		return movieService.addMovie(movie);
 	}
@@ -87,12 +87,12 @@ public class MovieController {
 	/**
 	 * Method: Put
 	 */
-	
+	@CrossOrigin
 	@PutMapping("/modify")
 	public @ResponseBody Optional<MovieFull> mofiyMovie(@RequestBody MovieFull movie) {
 		return movieService.modifyMovie(movie);
 	}
-	
+	@CrossOrigin
 	@PutMapping("/addActor")
 	public Optional<MovieFull> addActorToMovie(@RequestParam("m") int movieId, @RequestParam("a") int actorId) {		
 		return movieService.addActorToMovie(movieId, actorId);
@@ -101,7 +101,7 @@ public class MovieController {
 	/**
 	 * Delete
 	 */
-
+	@CrossOrigin
 	@DeleteMapping("/deleteMovie/{id}")
 	@ResponseBody
 	public MovieFull deleteMovie(@PathVariable("id") int id_movie) {
