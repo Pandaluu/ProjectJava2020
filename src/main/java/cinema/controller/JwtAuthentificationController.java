@@ -18,8 +18,8 @@ import cinema.config.JwtTokenUtil;
 import cinema.model.JwtRequest;
 import cinema.model.JwtResponse;
 
-@RestController
 @CrossOrigin
+@RestController
 public class JwtAuthentificationController {
 	
 	@Autowired
