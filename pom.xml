@@ -36,8 +36,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-
-
+		
 		<!-- in order to test Spring Boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -63,6 +62,17 @@
 			<artifactId>modelmapper</artifactId>
 			<version>2.3.6</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		
+		<dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
 
@@ -78,7 +88,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.18</version>
 		</dependency>
-
+		
 	</dependencies>
 
 	<build>
