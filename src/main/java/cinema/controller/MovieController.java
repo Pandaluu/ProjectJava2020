@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import cinema.dto.MovieFull;
 import cinema.dto.MovieLight;
+import cinema.exception.MovieNotFoundException;
 import cinema.persistance.entity.Movie;
 import cinema.persistance.repository.MovieRepository;
 import cinema.service.IMovieService;
@@ -44,7 +45,11 @@ public class MovieController {
 	@GetMapping(value="/{id}")
 	@ResponseBody
 	public Optional<MovieFull> singleMovie(@PathVariable("id") Integer id) {
-		return movieService.getMovieById(id);
+		Optional<MovieFull> fullMovie = movieService.getMovieById(id);
+		if (fullMovie.isPresent()) {
+			return fullMovie;
+		}
+		throw new MovieNotFoundException();
 	}
 
 	@CrossOrigin
@@ -57,8 +62,8 @@ public class MovieController {
 	@CrossOrigin
 	@GetMapping(value="/byTitleP")
 	@ResponseBody
-	public Set<Movie> movieByPartialTitle(@RequestParam("t") String title) {
-		return mrepo.findByTitleContainingIgnoreCase(title);
+	public Set<MovieLight> movieByPartialTitle(@RequestParam("t") String partialTitle) {
+		return movieService.getMovieByPartialTitle(partialTitle);
 	}
 	
 
@@ -88,11 +93,13 @@ public class MovieController {
 	 * Method: Put
 	 */
 	
+	@CrossOrigin
 	@PutMapping("/modify")
 	public @ResponseBody Optional<MovieFull> mofiyMovie(@RequestBody MovieFull movie) {
 		return movieService.modifyMovie(movie);
 	}
 	
+	@CrossOrigin
 	@PutMapping("/addActor")
 	public Optional<MovieFull> addActorToMovie(@RequestParam("m") int movieId, @RequestParam("a") int actorId) {		
 		return movieService.addActorToMovie(movieId, actorId);
@@ -102,6 +109,7 @@ public class MovieController {
 	 * Delete
 	 */
 
+	@CrossOrigin
 	@DeleteMapping("/deleteMovie/{id}")
 	@ResponseBody
 	public MovieFull deleteMovie(@PathVariable("id") int id_movie) {

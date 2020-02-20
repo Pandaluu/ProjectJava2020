@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import cinema.dto.MovieLight;
 import cinema.persistance.entity.Movie;
 import cinema.persistance.entity.Person;
 

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cinema.dto.MovieFull;
 import cinema.dto.MovieLight;
+import cinema.exception.MovieNotFoundException;
 import cinema.persistance.entity.Movie;
 import cinema.persistance.repository.MovieRepository;
 import cinema.persistance.repository.PersonRepository;
@@ -86,6 +87,7 @@ public class MovieService implements IMovieService {
             m.setTitle(movie.getTitle());
             m.setYear(movie.getYear());
             m.setDuration(movie.getDuration());
+            m.setSynopsis(movie.getSynopsis());
             movieRepository.flush();
         });
         
@@ -116,8 +118,10 @@ public class MovieService implements IMovieService {
 
 	@Override
 	public Set<MovieLight> getMovieByPartialTitle(String partialTitle) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Movie> movieEntities = movieRepository.findByTitleContainingIgnoreCase(partialTitle);
+		return movieEntities.stream()
+				.map(me -> mapper.map(me, MovieLight.class))
+				.collect(Collectors.toSet());
 	}
 	
 }
