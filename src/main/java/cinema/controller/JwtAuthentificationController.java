@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import cinema.config.JwtTokenUtil;
 import cinema.model.JwtRequest;
 import cinema.model.JwtResponse;
+import cinema.service.JwtUserDetailsService;
 
 @CrossOrigin
 @RestController
@@ -29,7 +30,7 @@ public class JwtAuthentificationController {
 	private JwtTokenUtil jwtTokenUtil;
 	
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private JwtUserDetailsService userDetailsService;
 	
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(
