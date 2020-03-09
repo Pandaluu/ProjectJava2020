@@ -20,8 +20,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		if("administrator".equals(username)) {
 			return new User(
 					"administrator",
-					passwordEncoder.encode("bangtan"),
-//					"$2y$10$iEaxi4Ixzu1WueIxLJygD.jsIjSTfXApSx3qjJL.Ae5ZlWonU5DG",
+					"$2y$10$9gWtJegHbedpbbtIlPbvbe8Cx1SGXNJBVIG6rUD6QOhsd0V/VHVmW",
 					new ArrayList<>());
 		} else {
 			throw new UsernameNotFoundException("User not found with this username");

@@ -1,29 +1,48 @@
 package cinema.persistance.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Account")
 public class Account {
 	
+	@Column
 	private Integer id;
 	private String userName;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
-	private String role;
 	
+	@OneToMany(mappedBy = "account")
+	private Set<LikedMovies> likedMovies;
+	
+	@Column
+	@ElementCollection(targetClass = String.class)
+	private List<String> roles = new ArrayList<String>();
 		
 	public Account() {
 		super();
 	}
+	
+	public Account(Integer id, String email, String password) {
+		this(id,null,null,null,email,password,null);
+		
+	}
 
 	public Account(Integer id, String userName, String firstName, String lastName, String email, String password,
-			String role) {
+			Set<LikedMovies> likedMovies) {
 		super();
 		this.id = id;
 		this.userName = userName;
@@ -31,7 +50,7 @@ public class Account {
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
-		this.role = role;
+		this.likedMovies = likedMovies;
 	}
 
 
@@ -90,15 +109,25 @@ public class Account {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+//
+//	@Column(name = "movieLiked")
+//	@ManyToMany
+//	@JoinTable(name="likedMovie",
+//    joinColumns=
+//        @JoinColumn(name="id_movie"),
+//    inverseJoinColumns=
+//        @JoinColumn(name="id_account")
+//	)
 
-	@Column(name = "role")
-	public String getRole() {
-		return role;
-	}
+//	public Set<LikedMovies> getLikedmovies() {
+//		return likedmovies;
+//	}
+//
+//	public void setLikedmovies(Set<LikedMovies> likedmovies) {
+//		this.likedmovies = likedmovies;
+//	}
 
-	public void setRole(String role) {
-		this.role = role;
-	}
 	
-
+	
+	
 }

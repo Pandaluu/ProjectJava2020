@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -37,6 +38,9 @@ public class Movie {
 	private Person director;
 	private String format;
 	private List<Person> actors = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "movie")
+	Set<LikedMovies> likedMovies;
 	
 	
 	public Movie() {
