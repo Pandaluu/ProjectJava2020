@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,38 +29,42 @@ public class PersonController {
 	@Autowired
 	IPersonService personService;
 
+	@CrossOrigin
 	@GetMapping
 	@ResponseBody
 	public List<PersonLight> allPersons() {
 		return personService.getAllPersons();
 	}
 	
+	@CrossOrigin
 	@GetMapping("/{id}")
 	@ResponseBody
 	public Optional<PersonFull> singlePerson(@PathVariable("id") int id) {
 		return personService.getPersonById(id);
 	}
 	
-
+	@CrossOrigin
 	@GetMapping("/findByName")
 	@ResponseBody
 	public Set<PersonFull> personByName(@RequestParam("n") String name) {
 		return personService.getPersonByName(name);
 	}
 
-	
+	@CrossOrigin
 	@GetMapping("/findByYear")
 	@ResponseBody
 	public Set<PersonFull> findPersonByYear(@RequestParam("y") int year) {
 		return personService.getPersonByYear(year);
 	}
 	
+	@CrossOrigin
 	@GetMapping("/directorByMovie/{idM}")
 	@ResponseBody
 	Optional<PersonLight> getMovieDirector(@PathVariable ("idM") Integer idMovie)  {
 		return personService.getMovieDirector(idMovie);
 	}
 	
+	@CrossOrigin
 	@GetMapping("/actorsByMovie/{idM}")
 	@ResponseBody
 	List<PersonLight> getMovieActors(@PathVariable ("idM") Integer idMovie)  {
@@ -70,7 +75,7 @@ public class PersonController {
 	/**
 	 * Method: Post
 	 */
-	
+	@CrossOrigin
 	@PostMapping("/addNewPerson")
 	@ResponseBody
 	public Person addNewPerson(@RequestBody Person newPerson) {
